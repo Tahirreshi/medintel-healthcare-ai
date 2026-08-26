@@ -1,0 +1,14 @@
+
+AMERICAN DIABETES ASSOCIATION (ADA) STANDARDS OF CARE IN DIABETES 2024
+
+SECTION 1: DIAGNOSTIC CRITERIA & RISK ASSESSMENT
+- Fasting Plasma Glucose (FPG) >= 126 mg/dL (7.0 mmol/L) indicates diabetes. Normal is < 100 mg/dL. Impaired Fasting Glucose (Prediabetes) is 100 - 125 mg/dL.
+- Hemoglobin A1c (HbA1c) >= 6.5% is diagnostic of Diabetes Mellitus. Target A1c for most non-pregnant adults is < 7.0%.
+- Prediabetes HbA1c threshold: 5.7% to 6.4%.
+- Body Mass Index (BMI) >= 25 kg/m2 (or >= 23 kg/m2 in Asian Americans) combined with risk factors (family history, age > 45, physical inactivity) warrants annual screening.
+
+SECTION 2: GLYCOSYLATED HEMOGLOBIN & CLINICAL INTERVENTION
+- Lifestyle modifications including 150 minutes/week of moderate-intensity aerobic physical activity and 5-10% body weight loss reduce Type 2 Diabetes conversion by 58%.
+- First-line pharmacotherapy: Metformin combined with comprehensive lifestyle management.
+- If HbA1c remains > 1.5% above target at diagnosis, consider dual combination therapy (Metformin + SGLT2 inhibitor or GLP-1 receptor agonist).
+- Elevated fasting glucose and high BMI correlate strongly with microvascular and macrovascular complications including diabetic nephropathy and retinopathy.
