@@ -1,0 +1,16 @@
+
+CMS HOSPITAL READMISSIONS REDUCTION PROGRAM (HRRP) CLINICAL PROTOCOL
+
+SECTION 1: HIGH-RISK READMISSION FACTORS
+- 30-Day Hospital Readmission is significantly predicted by:
+  1. Multiple prior hospital admissions within the preceding 12 months (Count > 1).
+  2. Length of Initial Inpatient Stay > 4 days.
+  3. Multimorbidity (Polypharmacy >= 5 active medications, concurrent Heart Failure, COPD, or Diabetes).
+  4. Advanced Age (> 65 years) combined with functional impairment.
+  5. Impaired renal function (Serum Creatinine > 1.3 mg/dL).
+
+SECTION 2: DISCHARGE INTERVENTIONS & CARE TRANSITION
+- Mandatory post-discharge follow-up appointment scheduled within 7 to 14 days of discharge.
+- Comprehensive Medication Reconciliation completed prior to patient departure.
+- Structured patient education on red flag symptoms requiring emergency contact.
+- Telephonic outreach by care coordinator within 48-72 hours post-discharge to verify medication adherence and clinical stability.
