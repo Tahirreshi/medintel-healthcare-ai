@@ -1,0 +1,15 @@
+
+JNC-8 EVIDENCE-BASED GUIDELINES FOR MANAGEMENT OF HIGH BLOOD PRESSURE
+
+SECTION 1: BLOOD PRESSURE CLASSIFICATION & THRESHOLDS
+- Normal Blood Pressure: Systolic < 120 mmHg and Diastolic < 80 mmHg.
+- Elevated Blood Pressure: Systolic 120-129 mmHg and Diastolic < 80 mmHg.
+- Stage 1 Hypertension: Systolic 130-139 mmHg OR Diastolic 80-89 mmHg.
+- Stage 2 Hypertension: Systolic >= 140 mmHg OR Diastolic >= 90 mmHg.
+- Hypertensive Crisis: Systolic > 180 mmHg and/or Diastolic > 120 mmHg.
+
+SECTION 2: TREATMENT GOALS & PHARMACOTHERAPY
+- In the general population aged >= 60 years, initiate pharmacotherapy at Systolic >= 150 mmHg or Diastolic >= 90 mmHg and treat to target < 150/90 mmHg.
+- In patients aged < 60 years, or those with Diabetes or Chronic Kidney Disease (CKD), target BP is < 140/90 mmHg.
+- Initial therapy options: Thiazide-type diuretic, Calcium Channel Blocker (CCB), ACE Inhibitor (ACEi), or Angiotensin Receptor Blocker (ARB).
+- Non-pharmacologic interventions: Dietary Sodium restriction (< 2,000 mg/day), DASH diet rich in potassium and fiber, weight management, and moderation of alcohol intake.
