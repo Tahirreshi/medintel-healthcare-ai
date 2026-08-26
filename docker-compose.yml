@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  medintel-app:
+    build: .
+    container_name: medintel_platform
+    ports:
+      - "5000:5000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - MEDINTEL_DB_PATH=/app/data/medintel_healthcare.db
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    restart: unless-stopped
