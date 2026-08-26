@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedIntel AI — Intelligent Healthcare Analytics & Clinical Intelligence Platform</title>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- TOP NAVBAR -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <div class="logo-icon"><i class="fa-solid fa-heart-pulse"></i></div>
+            <div class="brand-text">
+                <span class="title">MedIntel AI <span class="platform-badge">Enterprise DSS</span></span>
+                <span class="subtitle">Intelligent Healthcare Analytics & Clinical Decision-Support Platform</span>
+            </div>
+        </div>
+        
+        <div class="nav-controls">
+            <!-- ROLE SELECTOR -->
+            <div class="role-selector-wrap">
+                <i class="fa-solid fa-user-shield"></i>
+                <span class="role-label">Active Role:</span>
+                <select id="roleSelect" onchange="onRoleChange()">
+                    <option value="Clinician" selected>Clinician (Dr. Sarah Sterling)</option>
+                    <option value="Admin">System Administrator</option>
+                    <option value="Analyst">Data Analyst (De-Identified PHI)</option>
+                </select>
+            </div>
+            <div class="status-badge"><span class="pulse-dot"></span> HIPAA Compliant Engine</div>
+        </div>
+    </header>
+
+    <!-- MAIN APP LAYOUT -->
+    <div class="app-container">
+        <!-- SIDEBAR NAVIGATION -->
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <button class="nav-btn active" id="btn-tab-dashboard" onclick="switchTab('dashboard')">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard Overview
+                </button>
+                <button class="nav-btn" id="btn-tab-patients" onclick="switchTab('patients')">
+                    <i class="fa-solid fa-hospital-user"></i> Patient Directory & AI Risk
+                </button>
+                <button class="nav-btn" id="btn-tab-ml-models" onclick="switchTab('ml-models')">
+                    <i class="fa-solid fa-brain"></i> ML Model Evaluation
+                </button>
+                <button class="nav-btn" id="btn-tab-rag-assistant" onclick="switchTab('rag-assistant')">
+                    <i class="fa-solid fa-robot"></i> Clinical RAG Assistant
+                </button>
+                <button class="nav-btn" id="btn-tab-sql-explorer" onclick="switchTab('sql-explorer')">
+                    <i class="fa-solid fa-database"></i> SQL Analytics Explorer
+                </button>
+                <button class="nav-btn" id="btn-tab-aws-architecture" onclick="switchTab('aws-architecture')">
+                    <i class="fa-brands fa-aws"></i> AWS Cloud Architecture
+                </button>
+                <button class="nav-btn" id="btn-tab-audit-logs" onclick="switchTab('audit-logs')">
+                    <i class="fa-solid fa-shield-halved"></i> Audit & Governance
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="system-metric">
+                    <span>DB Records: <strong id="sidebar-db-count">500</strong></span>
+                    <span>Vector Chunks: <strong id="sidebar-rag-chunks">12</strong></span>
+                </div>
+                <div class="version">MedIntel DSS v2.4 • Powered by Gemini & FAISS</div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="content-area">
+            
+            <!-- TAB 1: DASHBOARD OVERVIEW -->
+            <section id="tab-dashboard" class="tab-pane active">
+                <div class="pane-header">
+                    <div>
+                        <h2><i class="fa-solid fa-gauge-high"></i> Population Health & Clinical Intelligence</h2>
+                        <p>Real-time analytical dashboard monitoring disease risk stratifications, vitals distributions, and predictive readmission indicators.</p>
+                    </div>
+                    <button class="btn btn-outline" onclick="loadDashboardStats()"><i class="fa-solid fa-rotate-right"></i> Refresh Stats</button>
+                </div>
+
+                <!-- KPI METRIC CARDS -->
+                <div class="kpi-grid">
+                    <div class="kpi-card blue">
+                        <div class="kpi-icon"><i class="fa-solid fa-users-medical"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Total Cohort Patients</span>
+                            <span class="value" id="kpi-total-patients">--</span>
+                            <span class="subtext"><i class="fa-solid fa-arrow-trend-up"></i> De-identified synthetic profile cohort</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card red">
+                        <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">High Risk Disease Cases</span>
+                            <span class="value" id="kpi-high-risk">--</span>
+                            <span class="subtext"><i class="fa-solid fa-circle-exclamation"></i> Risk Score &ge; 65%</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card amber">
+                        <div class="kpi-icon"><i class="fa-solid fa-bed-pulse"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">30-Day Readmission Risk</span>
+                            <span class="value" id="kpi-readmissions">--</span>
+                            <span class="subtext"><i class="fa-solid fa-clock-rotate-left"></i> Prior admission history</span>
+                        </div>
+                    </div>
+                    <div class="kpi-card teal">
+                        <div class="kpi-icon"><i class="fa-solid fa-book-medical"></i></div>
+                        <div class="kpi-info">
+                            <span class="label">Indexed Clinical Guidelines</span>
+                            <span class="value" id="kpi-docs-count">4</span>
+                            <span class="subtext"><i class="fa-solid fa-check-double"></i> ADA, JNC-8, HRRP Protocols</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CHARTS ROW -->
+                <div class="dashboard-charts-grid">
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <h3><i class="fa-solid fa-chart-pie"></i> Population Risk Stratification</h3>
+                            <span class="chart-tag">Multi-Model Aggregate</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="riskDistributionChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-card-header">
+                            <h3><i class="fa-solid fa-chart-bar"></i> Average Disease Risk Probability</h3>
+                            <span class="chart-tag">ML Inference Averages</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="diseaseTrendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: PATIENT DIRECTORY & CLINICAL RISK -->
+            <section id="tab-patients" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2><i class="fa-solid fa-hospital-user"></i> Patient Directory & Multi-Model Risk Stratification</h2>
+                        <p>Examine patient lab panels, inspect disease risk scores (Diabetes, Cardiac, Readmission), and generate contextual RAG explanations.</p>
+                    </div>
+                </div>
+
+                <!-- FILTER TOOLBAR -->
+                <div class="table-toolbar">
+                    <div class="search-wrap">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="patientSearchInput" placeholder="Search patient ID or name..." onkeyup="filterPatients()">
+                    </div>
+                    <div class="filter-controls">
+                        <div class="select-group">
+                            <label>Filter Risk:</label>
+                            <select id="riskFilterSelect" onchange="filterPatients()">
+                                <option value="ALL">All Risk Levels</option>
+                                <option value="HIGH">High Risk Only</option>
+                                <option value="MODERATE">Moderate Risk Only</option>
+                                <option value="LOW">Low Risk Only</option>
+                            </select>
+                        </div>
+                        <div class="select-group">
+                            <label>Sort By:</label>
+                            <select id="patientSortSelect" onchange="filterPatients()">
+                                <option value="id">Patient ID</option>
+                                <option value="age">Age (High to Low)</option>
+                                <option value="glucose">Glucose (High to Low)</option>
+                                <option value="bp">Blood Pressure (Sys)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PATIENTS TABLE -->
+                <div class="table-responsive">
+                    <table class="data-table" id="patientsTable">
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Patient Name</th>
+                                <th>Age / Sex</th>
+                                <th>Blood Pressure</th>
+                                <th>Glucose</th>
+                                <th>BMI</th>
+                                <th>Diabetes Risk</th>
+                                <th>Cardiac Risk</th>
+                                <th>Readmit Risk</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientsTableBody">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TAB 3: ML MODEL PERFORMANCE EVALUATION -->
+            <section id="tab-ml-models" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2><i class="fa-solid fa-brain"></i> Machine Learning Model Evaluation & Metrics</h2>
+                        <p>Rigorous clinical comparison of Logistic Regression, Random Forest, and XGBoost models using Recall (Sensitivity), Precision, ROC-AUC, Confusion Matrix, and Feature Importances.</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="triggerMLRetrain()"><i class="fa-solid fa-rotate"></i> Retrain All Models</button>
+                </div>
+
+                <div class="ml-models-container" id="mlMetricsContainer">
+                    <!-- Populated dynamically via JS -->
+                </div>
+            </section>
+
+            <!-- TAB 4: CLINICAL RAG ASSISTANT -->
+            <section id="tab-rag-assistant" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2><i class="fa-solid fa-robot"></i> Clinical RAG Assistant & Knowledge Base</h2>
+                        <p>Ask medical questions backed by indexed clinical guidelines (ADA Diabetes 2024, JNC-8 Hypertension, CMS Readmission Protocols) with inline citations.</p>
+                    </div>
+                    <button class="btn btn-accent" onclick="openDocUploadModal()"><i class="fa-solid fa-file-circle-plus"></i> Upload Document</button>
+                </div>
+
+                <div class="rag-layout">
+                    <!-- CHAT INTERFACE -->
+                    <div class="rag-chat-panel">
+                        <div class="chat-header">
+                            <i class="fa-solid fa-user-doctor"></i> RAG Clinical Decision Support Chat Engine
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="message assistant">
+                                <div class="avatar"><i class="fa-solid fa-user-doctor"></i></div>
+                                <div class="bubble">
+                                    Welcome! I am your Clinical RAG Assistant. Ask me any clinical question or select a quick query prompt below:
+                                    <div class="preset-prompts">
+                                        <button class="prompt-chip" onclick="setRagPrompt('What is the diagnostic threshold for HbA1c and glucose in Type 2 Diabetes?')">Diagnostic HbA1c & Glucose</button>
+                                        <button class="prompt-chip" onclick="setRagPrompt('What are the target blood pressure levels according to JNC-8 guidelines?')">JNC-8 Blood Pressure Targets</button>
+                                        <button class="prompt-chip" onclick="setRagPrompt('What risk factors correlate with 30-day hospital readmission?')">30-Day Readmission Risk Factors</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" id="ragInput" placeholder="Type a clinical guideline question..." onkeypress="handleRagKeyPress(event)">
+                            <button class="btn btn-primary" onclick="sendRagQuery()"><i class="fa-solid fa-paper-plane"></i> Ask Assistant</button>
+                        </div>
+                    </div>
+
+                    <!-- GUIDELINES SIDE PANEL -->
+                    <div class="rag-docs-panel">
+                        <div class="docs-header">
+                            <h3><i class="fa-solid fa-book-medical"></i> Indexed Medical Guidelines</h3>
+                        </div>
+                        <ul class="doc-list" id="documentsList">
+                            <!-- Populated via JS -->
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: SQL ANALYTICS EXPLORER -->
+            <section id="tab-sql-explorer" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2><i class="fa-solid fa-database"></i> SQL Healthcare Analytics Explorer</h2>
+                        <p>Interactive SQL engine demonstrating relational JOINs, GROUP BY aggregations, and subqueries on clinical patient tables.</p>
+                    </div>
+                </div>
+
+                <div class="sql-preset-bar">
+                    <span class="preset-label">Query Presets:</span>
+                    <button class="btn btn-outline" onclick="loadPresetSql('high_risk_join')"><i class="fa-solid fa-link"></i> High-Risk Patient JOIN</button>
+                    <button class="btn btn-outline" onclick="loadPresetSql('readmission_aggregates')"><i class="fa-solid fa-layer-group"></i> Readmission Group By</button>
+                    <button class="btn btn-outline" onclick="loadPresetSql('subquery_lab_outliers')"><i class="fa-solid fa-filter"></i> Lab Outliers Subquery</button>
+                </div>
+
+                <div class="sql-editor-wrap">
+                    <div class="editor-header">
+                        <span><i class="fa-solid fa-code"></i> SQL Command Editor (SQLite / PostgreSQL Syntax)</span>
+                        <button class="btn btn-success" onclick="executeSqlQuery()"><i class="fa-solid fa-play"></i> Run Query</button>
+                    </div>
+                    <textarea id="sqlQueryText" rows="6" placeholder="Write custom SQL query..."></textarea>
+                </div>
+
+                <div class="sql-results-wrap" id="sqlResultsContainer">
+                    <p class="placeholder-text"><i class="fa-solid fa-terminal"></i> Select a preset query above or enter SQL to view dataset results.</p>
+                </div>
+            </section>
+
+            <!-- TAB 6: AWS CLOUD ARCHITECTURE BLUEPRINT -->
+            <section id="tab-aws-architecture" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2><i class="fa-brands fa-aws"></i> AWS Enterprise Cloud Architecture Blueprint</h2>
+                        <p>Production infrastructure design for AWS S3, RDS PostgreSQL, ECR, ECS Fargate, IAM, and CloudWatch.</p>
+                    </div>
+                </div>
+
+                <div class="aws-diagram-card">
+                    <div class="aws-arch-visual">
+                        <div class="aws-box s3">
+                            <i class="fa-solid fa-box-archive"></i>
+                            <strong>AWS S3</strong>
+                            <span>Medical PDFs & Vector Artifacts</span>
+                        </div>
+                        <div class="aws-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="aws-box rds">
+                            <i class="fa-solid fa-database"></i>
+                            <strong>AWS RDS (PostgreSQL)</strong>
+                            <span>Patient Metadata & Predictions</span>
+                        </div>
+                        <div class="aws-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="aws-box ecr">
+                            <i class="fa-solid fa-cubes"></i>
+                            <strong>AWS ECR</strong>
+                            <span>Docker Container Registry</span>
+                        </div>
+                        <div class="aws-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="aws-box ecs">
+                            <i class="fa-solid fa-server"></i>
+                            <strong>AWS ECS (Fargate)</strong>
+                            <span>Flask & RAG AI Service</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="aws-specs-grid">
+                    <div class="spec-card">
+                        <h4><i class="fa-solid fa-shield-halved"></i> IAM & Role-Based Security Governance</h4>
+                        <p>Enforces strict HIPAA compliance using Role-Based Access Control (RBAC). Clinicians view full patient profiles while Data Analysts view anonymized aggregate data streams.</p>
+                    </div>
+                    <div class="spec-card">
+                        <h4><i class="fa-solid fa-chart-line"></i> CloudWatch Observability & Logging</h4>
+                        <p>Automated metrics monitoring container health, memory/CPU utilization, latency metrics, and audit access logs with CloudWatch alarms.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 7: AUDIT & GOVERNANCE -->
+            <section id="tab-audit-logs" class="tab-pane">
+                <div class="pane-header">
+                    <div>
+                        <h2><i class="fa-solid fa-shield-halved"></i> System Audit & Access Logs</h2>
+                        <p>Immutable security audit log tracking patient record views, ML inference requests, and admin events.</p>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Timestamp (UTC)</th>
+                                <th>User Name</th>
+                                <th>User Role</th>
+                                <th>Action Executed</th>
+                                <th>Resource Accessed</th>
+                                <th>IP Address</th>
+                            </tr>
+                        </thead>
+                        <tbody id="auditLogsBody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- PATIENT PROFILE & RAG MODAL -->
+    <div id="patientModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalPatientTitle"><i class="fa-solid fa-id-card"></i> Patient Profile</h3>
+                <button class="close-btn" onclick="closePatientModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalPatientBody">
+                <!-- Loaded dynamically via JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- DOCUMENT UPLOAD MODAL -->
+    <div id="uploadModal" class="modal-overlay">
+        <div class="modal-content" style="width: 550px;">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-file-circle-plus"></i> Upload Clinical Guideline Document</h3>
+                <button class="close-btn" onclick="closeUploadModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Document Filename</label>
+                    <input type="text" id="docFilenameInput" placeholder="e.g. ADA_CKD_Guidelines_2024.pdf" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                </div>
+                <div class="form-group" style="margin-bottom: 14px;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Document Category</label>
+                    <select id="docTypeSelect" style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                        <option value="Clinical Guideline">Clinical Guideline</option>
+                        <option value="Hospital Protocol">Hospital Protocol</option>
+                        <option value="Medical Literature">Medical Literature</option>
+                    </select>
+                </div>
+                <div class="form-group" style="margin-bottom: 18px;">
+                    <label style="display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px;">Document Text Content</label>
+                    <textarea id="docContentInput" rows="6" placeholder="Paste guideline text content here..." style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px;"></textarea>
+                </div>
+                <div style="text-align: right;">
+                    <button class="btn btn-outline" onclick="closeUploadModal()">Cancel</button>
+                    <button class="btn btn-primary" onclick="submitNewDocument()"><i class="fa-solid fa-upload"></i> Index into Vector DB</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+</body>
+</html>
