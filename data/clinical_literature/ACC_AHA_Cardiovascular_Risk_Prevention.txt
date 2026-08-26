@@ -1,0 +1,12 @@
+
+ACC/AHA GUIDELINE ON THE PRIMARY PREVENTION OF CARDIOVASCULAR DISEASE
+
+SECTION 1: LIPID MANAGEMENT & ATHEROSCLEROTIC CARDIOVASCULAR DISEASE (ASCVD)
+- Primary prevention targets: LDL Cholesterol < 100 mg/dL for moderate risk, and < 70 mg/dL for high risk patients.
+- Elevated LDL Cholesterol (>= 190 mg/dL) is a primary indication for high-intensity Statin therapy regardless of 10-year ASCVD score.
+- Hypertriglyceridemia (> 150 mg/dL) combined with low HDL (< 40 mg/dL in men, < 50 mg/dL in women) increases atherogenic risk.
+
+SECTION 2: LIFESTYLE & SMOKING CESSATION
+- Tobacco smoking is an independent primary risk factor for myocardial infarction and stroke. Absolute smoking cessation is required.
+- Maintain BMI between 18.5 and 24.9 kg/m2. Obesity (BMI >= 30) correlates with systemic inflammation and endothelial dysfunction.
+- Regular moderate physical exercise (150 min/week) improves lipid profiles and blood pressure control.
